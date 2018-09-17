@@ -18,7 +18,6 @@ def score_title(time_score)
            [200, "👍"]
 
   title = titles.find { |title| time_score < title[0] }
-  title ? title[1] : "💩"
 end
 
 def multiplication_table
@@ -26,7 +25,7 @@ def multiplication_table
   number_pairs.map{ |number_pair| number_pair << number_pair[0] * number_pair[1] }
 end
 
-def rows
+def random_multiplication_table_rows
   multiplication_table.shuffle[0..QUESTIONS-1]
 end
 
@@ -63,9 +62,9 @@ print "Mitäs laitetaan? "
 selection = gets.chomp.to_i
 
 if selection == 1
-  questions = rows.map { |row| multiplication(row) }
+  questions = random_multiplication_table_rows.map { |row| multiplication(row) }
 elsif selection == 2
-  questions = rows.map { |row| division(row) }
+  questions = random_multiplication_table_rows.map { |row| division(row) }
 else
   puts "No ei sit! 💩"
   exit
@@ -85,7 +84,7 @@ puts "Score: #{$score}"
 puts "Time: #{$time_score} seconds"
 puts "Fails: #{$fails.count} -> Penalty #{penalty_time} sec"
 puts "FINAL SCORE: #{final_score} seconds"
-puts "Olet siis, #{title}"
+puts "Olet siis, #{title}" if title
 unless $fails.empty?
   puts "\nHarjoittele näitä:"
   $fails.each { |f| puts f }
