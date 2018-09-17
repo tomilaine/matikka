@@ -15,7 +15,7 @@ def score_title(time_score)
            [80, "HYVÄ! 👍👍👍👍"],
            [100, "OK! 👍👍👍"],
            [120, "👍👍"],
-           [140, "👍"]
+           [200, "👍"]
 
   title = titles.find { |title| time_score < title[0] }
   title ? title[1] : "💩"
@@ -26,18 +26,16 @@ def multiplication_table
   number_pairs.map{ |number_pair| number_pair << number_pair[0] * number_pair[1] }
 end
 
-def shuffled_multiplication_table
+def rows
   multiplication_table.shuffle[0..QUESTIONS-1]
 end
 
-def multiplication
-  table = shuffled_multiplication_table
-  table.each { |row| ask("#{row[0]} * #{row[1]}", row[2]) }
+def multiplication(row)
+  ["#{row[0]} * #{row[1]}", row[2]]
 end
 
-def division
-  table = shuffled_multiplication_table
-  table.each { |row| ask("#{row[2]} : #{row[1]}", row[0]) }
+def division(row)
+  ["#{row[2]} : #{row[1]}", row[0]]
 end
 
 def ask(question, answer)
@@ -54,23 +52,27 @@ def ask(question, answer)
     puts "lisää harjoitusta... Se oli #{answer}"
     $fails << "#{question} = #{answer}"
   end
-  sleep 0.5
+  sleep 0.3
 end
+
+# Main
 
 puts "1. Kertolaskuja"
 puts "2. Jakolaskuja"
 print "Mitäs laitetaan? "
 selection = gets.chomp.to_i
 
-start_time = Time.now
 if selection == 1
-  multiplication
+  questions = rows.map { |row| multiplication(row) }
 elsif selection == 2
-  division
+  questions = rows.map { |row| division(row) }
 else
   puts "No ei sit! 💩"
   exit
 end
+
+start_time = Time.now
+questions.each { |question| ask(question[0], question[1]) }
 end_time = Time.now
 
 time_score = (end_time - start_time).round
