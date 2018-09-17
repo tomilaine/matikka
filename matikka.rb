@@ -41,8 +41,11 @@ def division
 end
 
 def ask(question, answer)
+  puts "\n--------------------------------"
+  puts "Kysymys #{$score + $fails.count + 1}/#{QUESTIONS}"
   puts "--------------------------------"
   puts question + " = ?"
+  print "Vastaus: "
   if answer == gets.chomp.to_i
     puts "AIKA PRO!"
     $score = $score + 1
