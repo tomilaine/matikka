@@ -1,5 +1,8 @@
 #!/usr/bin/ruby
 
+LOWEST_NUMBER = 1
+HIGHEST_NUMBER = 10
+
 PENALTY = 20
 
 $score = 0
@@ -8,7 +11,7 @@ $time_score = nil
 
 def score_title(time_score)
   titles = [60,  "PRO! 👍👍👍👍👍"],
-           [80, "GOOD! 👍👍👍👍"],
+           [80, "HYVÄ! 👍👍👍👍"],
            [100, "OK! 👍👍👍"],
            [120, "👍👍"],
            [140, "👍"]
@@ -18,19 +21,11 @@ def score_title(time_score)
 end
 
 def multiplication_table
-  num_as = (1..10).to_a
-  num_bs = (1..10).to_a
-
-  arr = []
-  num_as.each do |num_a|
-    num_bs.each do |num_b|
-      arr << [num_a, num_b, num_a * num_b]
-    end
-  end
-  arr
+  number_pairs = (LOWEST_NUMBER..HIGHEST_NUMBER).to_a.permutation(2)
+  number_pairs.map{ |number_pair| number_pair << number_pair[0] * number_pair[1] }
 end
 
-def shuffled_multiplication_table
+def shuffled_multiplication_table()
   multiplication_table.shuffle[0..9]
 end
 
@@ -94,8 +89,8 @@ puts "Score: #{$score}"
 puts "Time: #{$time_score} seconds"
 puts "Fails: #{$fails.count} -> Penalty #{penalty_time} sec"
 puts "FINAL SCORE: #{final_score} seconds"
-puts "That makes you a, #{title}"
+puts "Olet siis, #{title}"
 unless $fails.empty?
-  puts "\nPractice needed with these:"
+  puts "\nHarjoittele näitä:"
   $fails.each { |f| puts f }
 end
