@@ -81,9 +81,15 @@ title = score_title(final_score)
 
 puts "\n--------------------------------"
 puts "Score: #{$score}"
+
+if $fails.count == 0
+  puts "Täydelliset vastaukset!🏅"
+else
+  puts "Fails: #{$fails.count} -> Penalty #{penalty_time} sec"
+end
+
 puts "Time: #{time_score} seconds"
-puts "Fails: #{$fails.count} -> Penalty #{penalty_time} sec"
-puts "FINAL SCORE: #{final_score} seconds"
+puts "FINAL TIME: #{final_score} seconds"
 puts "Olet siis, #{title[1]}" if title
 unless $fails.empty?
   puts "\nHarjoittele näitä:"
