@@ -13,8 +13,8 @@ $time_score = nil
 def score_title(time_score)
   titles = [60,  "PRO! 👍👍👍👍👍"],
            [80, "HYVÄ! 👍👍👍👍"],
-           [100, "OK! 👍👍👍"],
-           [120, "👍👍"],
+           [110, "OK! 👍👍👍"],
+           [140, "👍👍"],
            [200, "👍"]
 
   title = titles.find { |title| time_score < title[0] }
@@ -81,10 +81,10 @@ title = score_title(final_score)
 
 puts "\n--------------------------------"
 puts "Score: #{$score}"
-puts "Time: #{$time_score} seconds"
+puts "Time: #{time_score} seconds"
 puts "Fails: #{$fails.count} -> Penalty #{penalty_time} sec"
 puts "FINAL SCORE: #{final_score} seconds"
-puts "Olet siis, #{title}" if title
+puts "Olet siis, #{title[1]}" if title
 unless $fails.empty?
   puts "\nHarjoittele näitä:"
   $fails.each { |f| puts f }
