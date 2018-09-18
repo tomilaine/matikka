@@ -22,11 +22,22 @@ end
 
 def multiplication_table
   number_pairs = (LOWEST_NUMBER..HIGHEST_NUMBER).to_a.permutation(2)
-  number_pairs.map{ |number_pair| number_pair << number_pair[0] * number_pair[1] }
+  number_pairs.map do |number_pair|
+    number_pair << number_pair[0] * number_pair[1]
+    number_pair << number_pair[0] + number_pair[1]
+  end
 end
 
 def random_multiplication_table_rows
   multiplication_table.shuffle[0..QUESTIONS-1]
+end
+
+def addition(row)
+  ["#{row[0]} + #{row[1]}", row[3]]
+end
+
+def substraction(row)
+  ["#{row[3]} - #{row[1]}", row[0]]
 end
 
 def multiplication(row)
@@ -56,14 +67,21 @@ end
 
 # Main
 
-puts "1. Kertolaskuja"
-puts "2. Jakolaskuja"
+puts "1. Yhteenlaskuja"
+puts "2. Vähennyslaskuja"
+puts "3. Kertolaskuja"
+puts "4. Jakolaskuja"
+
 print "Mitäs laitetaan? "
 selection = gets.chomp.to_i
 
 if selection == 1
-  questions = random_multiplication_table_rows.map { |row| multiplication(row) }
+  questions = random_multiplication_table_rows.map { |row| addition(row) }
 elsif selection == 2
+  questions = random_multiplication_table_rows.map { |row| substraction(row) }
+elsif selection == 3
+  questions = random_multiplication_table_rows.map { |row| multiplication(row) }
+elsif selection == 4
   questions = random_multiplication_table_rows.map { |row| division(row) }
 else
   puts "No ei sit! 💩"
