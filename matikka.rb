@@ -23,8 +23,10 @@ end
 def multiplication_table
   number_pairs = (LOWEST_NUMBER..HIGHEST_NUMBER).to_a.permutation(2)
   number_pairs.map do |number_pair|
-    number_pair << number_pair[0] * number_pair[1]
-    number_pair << number_pair[0] + number_pair[1]
+    { x: number_pair[0],
+      y: number_pair[1],
+      sum: number_pair[0] + number_pair[1],
+      product: number_pair[0] * number_pair[1] }
   end
 end
 
@@ -33,19 +35,19 @@ def random_multiplication_table_rows
 end
 
 def addition(row)
-  ["#{row[0]} + #{row[1]}", row[3]]
+  ["#{row[:x]} + #{row[:y]}", row[:sum]]
 end
 
 def substraction(row)
-  ["#{row[3]} - #{row[1]}", row[0]]
+  ["#{row[:sum]} - #{row[:y]}", row[:x]]
 end
 
 def multiplication(row)
-  ["#{row[0]} * #{row[1]}", row[2]]
+  ["#{row[:x]} * #{row[:y]}", row[:product]]
 end
 
 def division(row)
-  ["#{row[2]} : #{row[1]}", row[0]]
+  ["#{row[:product]} : #{row[:y]}", row[:x]]
 end
 
 def ask(question, answer)
